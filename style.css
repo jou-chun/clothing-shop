@@ -56,7 +56,10 @@ body{
   text-align:center;
 }
 .item:hover{transform:translateY(-4px)}
-.item img{width:100%;height:260px;object-fit:cover}
+.item img{
+  width:100%;
+  height:auto;
+}
 .item h3{margin:.75rem 0 .25rem;font-size:1.1rem}
 .price{margin:0 0 1rem;font-weight:700;color:#e91e63}
 
