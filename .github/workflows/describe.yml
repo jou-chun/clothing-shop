@@ -1,27 +1,24 @@
-name: Auto-describe clothes (Gemini)
+name: Auto-describe clothes (OpenAI)
 
 on:
   push:
     paths:
-      - "assets/img/**"          # 只有動到照片才跑
+      - "assets/img/**"          # 只有動到圖片才跑
 
 jobs:
   caption:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+        with: { python-version: "3.11" }
 
-      # Gemini SDK + Pillow
-      - run: pip install --upgrade google-genai pillow
+      - run: pip install --upgrade openai pillow
 
       - name: Generate captions
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python .github/scripts/caption.py
 
       - name: Commit products.json
