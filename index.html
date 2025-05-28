@@ -33,23 +33,7 @@
   </section>
 
   <!-- ====== 商品區 ====== -->
-  <section class="gallery">
-    <!-- 商品卡 01 -->
-    <article class="item">
-      <img src="assets/img/top1.jpg" alt="亞麻上衣">
-      <h3>亞麻上衣</h3>
-      <p class="price">NT$ 690</p>
-    </article>
-
-    <!-- 商品卡 02 -->
-    <article class="item">
-      <img src="assets/img/dress1.jpg" alt="碎花洋裝">
-      <h3>碎花洋裝</h3>
-      <p class="price">NT$ 1,280</p>
-    </article>
-
-    <!-- 再貼更多 … -->
-  </section>
+  <section class="gallery"></section>   <!-- JS 會把商品卡填進來 -->
 
   <!-- ====== 聯絡資訊 ====== -->
   <section class="contact">
@@ -59,6 +43,26 @@
   <footer class="site-footer">
     <p>© 2025 新立女裝．Made with GitHub Pages</p>
   </footer>
+
+  <!-- ====== 讀取 products.json 並渲染 ====== -->
+  <script type="module">
+  fetch("data/products.json?ts=" + Date.now())          /* 加時間戳破快取 */
+    .then(r => r.json())
+    .then(list => {
+      const html = list.map(p => `
+        <article class="item">
+          <img src="assets/img/${p.file}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p class="price">${p.price ? "NT$ " + p.price : ""}</p>
+          <p class="desc">${p.desc ?? ""}</p>
+        </article>`).join("");
+      document.querySelector(".gallery").innerHTML = html;
+    })
+    .catch(err => {
+      console.error("讀取 products.json 失敗：", err);
+      document.querySelector(".gallery").innerHTML =
+        "<p style='color:red;text-align:center'>商品清單載入失敗，請稍後再試。</p>";
+    });
+  </script>
 </body>
 </html>
-
