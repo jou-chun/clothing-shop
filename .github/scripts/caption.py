@@ -11,7 +11,7 @@ products = {}
 if OUT.exists():
     products = {p["file"]: p for p in json.loads(OUT.read_text())}
 
-price_re = re.compile(r"_(\d+)$")
+price_re = re.compile(r"_(\d+)$")   # 解析 _價格
 
 for img in IMG_DIR.iterdir():
     if img.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
@@ -42,4 +42,3 @@ for img in IMG_DIR.iterdir():
 OUT.parent.mkdir(exist_ok=True)
 OUT.write_text(json.dumps(list(products.values()), ensure_ascii=False, indent=2))
 print("✨ Gemini captions updated!")
-`
