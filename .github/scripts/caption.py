@@ -4,7 +4,7 @@ import google.genai as genai                            # ← 新寫法
 
 # --------- 初始化 ---------
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-model  = client.models.get("gemini-pro-vision")   # 也可換成 gemini-2.0-flash
+model = genai.GenerativeModel("models/gemini-2.5-flash-preview-05-20")
 
 IMG_DIR = pathlib.Path("assets/img")
 OUT     = pathlib.Path("data/products.json")
