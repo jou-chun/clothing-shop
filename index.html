@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>媽媽的衣服小店</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <h1>👗 媽媽的衣服小店</h1>
+  <p>想購買請截圖私訊 LINE：<strong>@clothingmom</strong></p>
+</header>
+
+<section class="gallery"></section>
+
+<footer>
+  <p>© 2025 媽媽的衣服小店．Made with GitHub Pages</p>
+</footer>
+
+<script type="module">
+fetch("data/products.json")
+  .then(r => r.json())
+  .then(list => {
+    document.querySelector(".gallery").innerHTML = list.map(p => `
+      <article class="item">
+        <img src="assets/img/${p.file}" alt="${p.name}">
+        <h2>${p.name}</h2>
+        <p class="price">${p.price ? "NT$ "+p.price : ""}</p>
+        <p class="desc">${p.desc ?? ""}</p>
+      </article>`).join("");
+  });
+</script>
+</body>
+</html>
