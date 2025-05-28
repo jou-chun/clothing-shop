@@ -1,35 +1,64 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <title>媽媽的衣服小店</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>新立女裝 ‧ 媽媽的衣服小店</title>
+
+  <!-- Google Font：Noto Sans TC -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <h1>👗 媽媽的衣服小店</h1>
-  <p>想購買請截圖私訊 LINE：<strong>@clothingmom</strong></p>
-</header>
+  <!-- ====== 頂部 LOGO / 店名 ====== -->
+  <header class="site-header">
+    <a href="./" class="logo-wrap">
+      <img src="assets/img/logo.png" alt="新立女裝 Logo" class="logo">
+      <span class="brand-name">新立女裝</span>
+    </a>
+    <p class="tagline">👗 媽媽的衣服小店</p>
+  </header>
 
-<section class="gallery"></section>
+  <!-- ====== 品牌故事 ====== -->
+  <section class="brand-story">
+    <h2>我們的故事</h2>
+    <p>
+      「<strong>新立女裝</strong>」創立於民國 84 年，是一間位於台南的溫馨小店。<br>
+      20 年來，柔君媽媽親自為顧客挑選每一件衣服，<br>
+      嚴選布料、重視品質，只為提供妳 <em>好看、好穿又實惠</em> 的美衣。<br>
+      如今因應時代轉變，小店搬到線上繼續陪伴大家，<br>
+      期待老顧客與新朋友都能在這裡找到屬於妳的那件衣服。💕
+    </p>
+  </section>
 
-<footer>
-  <p>© 2025 媽媽的衣服小店．Made with GitHub Pages</p>
-</footer>
+  <!-- ====== 商品區 ====== -->
+  <section class="gallery">
+    <!-- 商品卡 01 -->
+    <article class="item">
+      <img src="assets/img/top1.jpg" alt="亞麻上衣">
+      <h3>亞麻上衣</h3>
+      <p class="price">NT$ 690</p>
+    </article>
 
-<script type="module">
-fetch("data/products.json")
-  .then(r => r.json())
-  .then(list => {
-    document.querySelector(".gallery").innerHTML = list.map(p => `
-      <article class="item">
-        <img src="assets/img/${p.file}" alt="${p.name}">
-        <h2>${p.name}</h2>
-        <p class="price">${p.price ? "NT$ "+p.price : ""}</p>
-        <p class="desc">${p.desc ?? ""}</p>
-      </article>`).join("");
-  });
-</script>
+    <!-- 商品卡 02 -->
+    <article class="item">
+      <img src="assets/img/dress1.jpg" alt="碎花洋裝">
+      <h3>碎花洋裝</h3>
+      <p class="price">NT$ 1,280</p>
+    </article>
+
+    <!-- 再貼更多 … -->
+  </section>
+
+  <!-- ====== 聯絡資訊 ====== -->
+  <section class="contact">
+    <p>喜歡哪件衣服，截圖私訊 LINE：<strong>@clothingmom</strong></p>
+  </section>
+
+  <footer class="site-footer">
+    <p>© 2025 新立女裝．Made with GitHub Pages</p>
+  </footer>
 </body>
 </html>
+
