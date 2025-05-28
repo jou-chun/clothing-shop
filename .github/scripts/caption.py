@@ -1,6 +1,6 @@
 import json, pathlib, re, os
 from PIL import Image
-from google import genai                          # ← 新寫法
+import google.genai as genai                            # ← 新寫法
 
 # --------- 初始化 ---------
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])

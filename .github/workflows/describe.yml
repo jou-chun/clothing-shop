@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
 
       # Gemini SDK + Pillow
-      - run: pip install --upgrade google-generativeai pillow
+      - run: pip install --upgrade google-genai pillow
 
       - name: Generate captions
         env:
