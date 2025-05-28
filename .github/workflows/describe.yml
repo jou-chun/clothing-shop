@@ -1,0 +1,31 @@
+name: Auto-describe clothes (Gemini)
+
+on:
+  push:
+    paths:
+      - "assets/img/**"          # 只有動到照片才跑
+
+jobs:
+  caption:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Gemini SDK + Pillow
+      - run: pip install --upgrade google-generativeai pillow
+
+      - name: Generate captions
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python .github/scripts/caption.py
+
+      - name: Commit products.json
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "data/products.json"
+          message: "Update product descriptions [CI]"
