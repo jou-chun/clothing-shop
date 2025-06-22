@@ -10,6 +10,7 @@ IMG_DIR = pathlib.Path("assets/img")
 OUT     = pathlib.Path("data/products.json")
 
 price_re = re.compile(r"_(\d+)$")          # 擷取 _價格
+order_re = re.compile(r"^(\d+)[-_]")       # 讀檔名前綴排序
 
 # 讀舊 JSON → dict 方便查詢
 old = {}
@@ -30,7 +31,10 @@ for img in imgs:
     stem  = img.stem
     m     = price_re.search(stem)
     price = m.group(1) if m else ""
-    name  = stem[:m.start()] if m else stem
+    name_part = stem[:m.start()] if m else stem
+    o = order_re.match(name_part)
+    order = int(o.group(1)) if o else None
+    name  = order_re.sub("", name_part, 1) if o else name_part
 
     # 已經有描述 & 價格沒變 → 直接沿用舊資料
     if img.name in old and old[img.name].get("price") == price:
@@ -55,12 +59,15 @@ for img in imgs:
     )
     desc = resp.choices[0].message.content.strip()
 
-    new_products.append({
+    item = {
         "file": img.name,
         "name": name,
         "price": price,
         "desc":  desc
-    })
+    }
+    if order is not None:
+        item["order"] = order
+    new_products.append(item)
 
 # ─── 2. 輸出（覆蓋舊 JSON；刪掉的圖片自動消失） ──
 OUT.parent.mkdir(exist_ok=True)

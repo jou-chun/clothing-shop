@@ -20,6 +20,10 @@
     <p class="tagline">柔君的衣服行動小舖</p>
   </header>
 
+
+  <!-- ====== 商品區 ====== -->
+  <section class="gallery"></section>   <!-- JS 會把商品卡填進來 -->
+
   <!-- ====== 品牌故事 ====== -->
   <section class="brand-story">
     <h2>我們的故事</h2>
@@ -32,14 +36,10 @@
     </p>
   </section>
 
-  <!-- ====== 商品區 ====== -->
-  <section class="gallery"></section>   <!-- JS 會把商品卡填進來 -->
-
   <!-- ====== 聯絡資訊 ====== -->
   <section class="contact">
     <p>喜歡哪件衣服，截圖私訊 LINE：<strong>@wujimmy1119</strong></p>
   </section>
-
   <footer class="site-footer">
     <p>© 2025 新立女裝．Made with GitHub Pages</p>
   </footer>
@@ -49,6 +49,12 @@
   fetch("data/products.json?ts=" + Date.now())          /* 加時間戳破快取 */
     .then(r => r.json())
     .then(list => {
+      list.sort((a,b) => {
+        const orderA = a.order ?? Infinity;
+        const orderB = b.order ?? Infinity;
+        if (orderA !== orderB) return orderA - orderB;
+        return b.file.localeCompare(a.file); // 其餘依檔名倒序
+      });
       const html = list.map(p => `
         <article class="item">
           <img src="assets/img/${p.file}" alt="${p.name}">
